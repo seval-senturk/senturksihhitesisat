@@ -82,16 +82,16 @@ export function Services() {
 
         <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {services.map(({ title, description, image, icon: Icon }) => (
-            <li key={title} className="h-full">
+            <li key={title} className="h-full min-w-0">
               <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_10px_28px_-16px_rgba(15,23,42,0.35)]">
                 <div className="relative">
-                  <div className="relative aspect-[4/3]">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={image.src}
                       alt={image.alt}
                       fill
                       sizes={image.sizes}
-                      className="object-cover"
+                      className="object-cover object-center"
                     />
                   </div>
                   <div className="absolute bottom-0 left-4 flex size-12 translate-y-1/2 items-center justify-center rounded-xl border border-neutral-100 bg-white text-brand shadow-[0_6px_16px_-8px_rgba(15,23,42,0.45)]">

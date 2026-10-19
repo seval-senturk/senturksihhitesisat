@@ -14,6 +14,7 @@ export type SiteImage = {
 };
 
 const cardSizes = "(min-width: 1280px) 240px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
+const projectSizes = "(min-width: 1280px) 400px, (min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw";
 
 export const images = {
   branding: {
@@ -73,39 +74,39 @@ export const images = {
   },
   projects: {
     bathroomShower: {
-      src: "/images/projects/project-bathroom-shower.webp",
+      src: "/images/projects/bathroom.png",
       alt: "Cam duşakabin ve beyaz klozet bulunan modern banyo",
-      width: 864,
-      height: 1152,
-      sizes: cardSizes,
+      width: 1448,
+      height: 1086,
+      sizes: projectSizes,
     },
     heatingManifold: {
-      src: "/images/projects/project-heating-manifold.webp",
+      src: "/images/projects/plumber.png",
       alt: "Panel kalorifer ve kırmızı-mavi borulu yerden ısıtma kolektörü",
-      width: 864,
-      height: 1152,
-      sizes: cardSizes,
+      width: 1448,
+      height: 1086,
+      sizes: projectSizes,
     },
     bathroomVanity: {
-      src: "/images/projects/project-bathroom-vanity.webp",
+      src: "/images/projects/banyo.png",
       alt: "Ahşap dolap, beyaz lavabo ve büyük aynalı modern banyo",
-      width: 864,
-      height: 1152,
-      sizes: cardSizes,
+      width: 1321,
+      height: 1191,
+      sizes: projectSizes,
     },
     gasMeter: {
-      src: "/images/projects/project-gas-meter.webp",
+      src: "/images/projects/sayac.png",
       alt: "Sarı doğalgaz borusu ve duvara monte edilmiş sayaç",
-      width: 864,
-      height: 1152,
-      sizes: cardSizes,
+      width: 1322,
+      height: 1190,
+      sizes: projectSizes,
     },
     kitchenSink: {
-      src: "/images/projects/project-kitchen-sink.webp",
+      src: "/images/projects/evye.png",
       alt: "Krom musluklu paslanmaz mutfak evyesi",
-      width: 864,
-      height: 1152,
-      sizes: cardSizes,
+      width: 1322,
+      height: 1190,
+      sizes: projectSizes,
     },
   },
   cta: {

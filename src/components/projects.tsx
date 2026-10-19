@@ -1,4 +1,8 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { X } from "lucide-react";
 import { images } from "@/config/images";
 
 const projects = [
@@ -10,6 +14,24 @@ const projects = [
 ] as const;
 
 export function Projects() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const active = activeIndex === null ? null : projects[activeIndex];
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (active) {
+      if (!dialog.open) dialog.showModal();
+      closeRef.current?.focus();
+      return;
+    }
+
+    if (dialog.open) dialog.close();
+  }, [active]);
+
   return (
     <section
       id="yaptigimiz-isler"
@@ -38,22 +60,63 @@ export function Projects() {
         </div>
 
         <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {projects.map((image) => (
-            <li key={image.src}>
-              <figure className="relative aspect-[3/4] overflow-hidden rounded-xl shadow-[0_10px_24px_-14px_rgba(15,23,42,0.55)]">
+          {projects.map((image, index) => (
+            <li key={image.src} className="min-w-0">
+              <button
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`${image.alt}. Büyük görüntüle`}
+                className="relative block aspect-square w-full cursor-zoom-in overflow-hidden rounded-xl shadow-[0_10px_24px_-14px_rgba(15,23,42,0.55)]"
+              >
                 <Image
                   src={image.src}
-                  alt={image.alt}
+                  alt=""
                   fill
                   loading="lazy"
+                  quality={100}
                   sizes={image.sizes}
-                  className="object-cover"
+                  className="object-cover object-center"
                 />
-              </figure>
+              </button>
             </li>
           ))}
         </ul>
       </div>
+
+      <dialog
+        ref={dialogRef}
+        aria-label={active?.alt ?? "Proje görseli"}
+        className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none border-0 bg-transparent p-0 backdrop:bg-[#0c2340]/80"
+        onClose={() => setActiveIndex(null)}
+        onClick={() => setActiveIndex(null)}
+      >
+        {active ? (
+          <div className="flex h-full w-full items-center justify-center p-4 sm:p-10">
+            <div
+              className="relative h-[85dvh] w-[min(92vw,1100px)]"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <Image
+                src={active.src}
+                alt={active.alt}
+                fill
+                quality={100}
+                sizes="(min-width: 1024px) 1100px, 92vw"
+                className="object-contain object-center"
+              />
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={() => setActiveIndex(null)}
+                aria-label="Görseli kapat"
+                className="fixed top-4 right-4 flex size-11 cursor-pointer items-center justify-center rounded-full bg-white text-[#0c2340] shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)]"
+              >
+                <X aria-hidden="true" className="size-5" />
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </dialog>
     </section>
   );
 }

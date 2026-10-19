@@ -39,14 +39,14 @@ export function ContactCta() {
           </p>
         </div>
 
-        <div className="relative mx-auto h-72 w-full max-w-[17rem] lg:h-64">
+        <div className="relative mx-auto h-72 w-full max-w-[17rem] overflow-hidden lg:h-64">
           <Image
             src={images.cta.plumber.src}
             alt={images.cta.plumber.alt}
             fill
             loading="lazy"
             sizes={images.cta.plumber.sizes}
-            className="object-cover object-[center_20%]"
+            className="object-cover object-center"
           />
           <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#102133] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#102133] to-transparent" />

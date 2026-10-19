@@ -77,14 +77,14 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative h-80 sm:h-[420px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[44%]">
+      <div className="relative h-80 overflow-hidden sm:h-[420px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[44%]">
           <Image
             src={images.hero.plumber.src}
             alt={images.hero.plumber.alt}
             fill
             priority={images.hero.plumber.priority}
             sizes={images.hero.plumber.sizes}
-            className="object-cover object-[center_20%]"
+            className="object-cover object-center"
           />
           <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-28 bg-gradient-to-r from-[#07182f] to-transparent lg:block" />
           <div className="absolute right-3 bottom-3 flex max-w-[16rem] items-center gap-3 rounded-2xl bg-white px-3.5 py-3 text-neutral-800 shadow-lg sm:right-5 sm:bottom-5">
