@@ -1,5 +1,6 @@
 export type BusinessProfile = {
   telephone: string;
+  telephoneDisplay: string;
   email: string;
   streetAddress: string;
   addressLocality: string;
@@ -12,6 +13,8 @@ export type BusinessProfile = {
   areaServed: readonly string[];
   sameAs: readonly string[];
 };
+
+const telephoneDisplay = "0542 401 79 04";
 
 function getSiteUrl(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "http://localhost:3000";
@@ -33,41 +36,38 @@ function getSiteUrl(): string {
 
 export const siteConfig = {
   name: "Şentürk Sıhhi Tesisat",
-  description:
-    "Şentürk Sıhhi Tesisat resmi tanıtım sitesi. Hizmet bölgesi ve iletişim bilgileri eklendikten sonra güncellenecek.",
+  title: "Şentürk Sıhhi Tesisat | Orhangazi, Bursa",
+  description: `Şentürk Sıhhi Tesisat, Orhangazi ve Bursa'da sıhhi tesisat hizmeti verir. İletişim: ${telephoneDisplay}.`,
   url: getSiteUrl(),
   locale: "tr_TR",
   language: "tr",
   /**
-   * Keep false until the public page and verified business details are ready.
-   * This blocks indexing of the infrastructure placeholder.
+   * The page is still a structural shell. Keep this false until the
+   * production domain and the remaining public sections are ready.
    */
   indexable: false,
 } as const;
 
 /**
- * Public contact facts for local SEO. Leave unknown values empty.
- * Incomplete name/address/phone data is not published as structured data.
+ * Confirmed public facts only. Street, postal code, coordinates, hours,
+ * and profiles stay empty until they are verified.
  */
 export const businessProfile: BusinessProfile = {
-  telephone: "",
+  telephone: "+905424017904",
+  telephoneDisplay,
   email: "",
   streetAddress: "",
-  addressLocality: "",
-  addressRegion: "",
+  addressLocality: "Orhangazi",
+  addressRegion: "Bursa",
   postalCode: "",
   addressCountry: "TR",
   latitude: "",
   longitude: "",
   openingHours: [],
-  areaServed: [],
+  areaServed: ["Orhangazi", "Bursa"],
   sameAs: [],
 };
 
 export function hasLocalBusinessFacts(profile: BusinessProfile): boolean {
-  return (
-    profile.telephone.trim() !== "" &&
-    profile.streetAddress.trim() !== "" &&
-    profile.addressLocality.trim() !== ""
-  );
+  return profile.telephone.trim() !== "" && profile.addressLocality.trim() !== "";
 }

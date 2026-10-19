@@ -10,10 +10,13 @@ export type JsonLd = Record<string, unknown>;
 function plumberNode(profile: BusinessProfile): JsonLd {
   const address: JsonLd = {
     "@type": "PostalAddress",
-    streetAddress: profile.streetAddress,
-    addressLocality: profile.addressLocality,
+    addressLocality: profile.addressLocality.trim(),
     addressCountry: profile.addressCountry,
   };
+
+  if (profile.streetAddress.trim()) {
+    address.streetAddress = profile.streetAddress.trim();
+  }
 
   if (profile.addressRegion.trim()) {
     address.addressRegion = profile.addressRegion.trim();
@@ -25,12 +28,17 @@ function plumberNode(profile: BusinessProfile): JsonLd {
 
   const plumber: JsonLd = {
     "@type": "Plumber",
+    "@id": `${siteConfig.url}/#business`,
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
     telephone: profile.telephone.trim(),
     address,
   };
+
+  if (profile.areaServed.length > 0) {
+    plumber.areaServed = profile.areaServed;
+  }
 
   if (profile.email.trim()) {
     plumber.email = profile.email.trim();
@@ -55,10 +63,6 @@ function plumberNode(profile: BusinessProfile): JsonLd {
     plumber.openingHours = profile.openingHours;
   }
 
-  if (profile.areaServed.length > 0) {
-    plumber.areaServed = profile.areaServed;
-  }
-
   if (profile.sameAs.length > 0) {
     plumber.sameAs = profile.sameAs;
   }
@@ -70,6 +74,7 @@ export function getStructuredData(): JsonLd {
   const graph: JsonLd[] = [
     {
       "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
       name: siteConfig.name,
       url: siteConfig.url,
       inLanguage: siteConfig.language,
